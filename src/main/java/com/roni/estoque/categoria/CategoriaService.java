@@ -1,5 +1,6 @@
 package com.roni.estoque.categoria;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,6 +29,13 @@ public class CategoriaService {
 
     public Categoria create(CategoriaDTO dto){
         Categoria categoria = new Categoria();
+        categoria.setNome(dto.getNome());
+        categoria.setDescricao(dto.getDescricao());
+        return repository.save(categoria);
+    }
+
+    public Categoria update(Long id, @Valid CategoriaDTO dto){
+        Categoria categoria = findOne(id);
         categoria.setNome(dto.getNome());
         categoria.setDescricao(dto.getDescricao());
         return repository.save(categoria);

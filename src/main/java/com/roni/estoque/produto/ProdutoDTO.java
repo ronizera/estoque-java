@@ -13,7 +13,7 @@ public class ProdutoDTO {
     @Size(min = 2, max = 100, message = "Nome deve ter entre 2 e 100 caracteres")
     private String nome;
 
-    @NotBlank(message = "Preço é obrigatório")
+    @NotNull(message = "Preço é obrigatório")
     @Positive(message = "Preço deve ser maior que zero")
     private double preco;
 

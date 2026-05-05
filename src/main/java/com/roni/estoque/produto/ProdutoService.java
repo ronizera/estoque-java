@@ -43,10 +43,20 @@ public class ProdutoService {
 
     }
 
+    public Produto update(Long id, ProdutoDTO dto){
+        Produto produto = findOne(id);
+        Categoria categoria = categoriaService.findOne(dto.getCategoriaId());
+        produto.setNome(dto.getNome());
+        produto.setPreco(dto.getPreco());
+        produto.setCategoria(categoria);
+        return repository.save(produto);
+    }
+
     public void remove(Long id){
         findOne(id);
         repository.deleteById(id);
     }
+
 
 
 }

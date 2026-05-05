@@ -34,6 +34,11 @@ public class CategoriaController {
         return service.create(dto);
     }
 
+    @PutMapping("/{id}")
+    public Categoria update(@PathVariable Long id, @RequestBody @Valid CategoriaDTO dto){
+        return service.update(id, dto);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@PathVariable Long id){

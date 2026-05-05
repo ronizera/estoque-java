@@ -21,7 +21,7 @@ public class Produto {
     @Column(nullable = false)
     private Double preco;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 

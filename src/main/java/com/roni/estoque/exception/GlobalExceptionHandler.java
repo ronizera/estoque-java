@@ -47,6 +47,8 @@ public class GlobalExceptionHandler {
     // Captura qualquer erro inesperado
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGeneric(Exception ex) {
+        System.out.println("ERRO GENERICO: " + ex.getMessage());
+        ex.printStackTrace();
         ApiError error = new ApiError(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Erro interno do servidor",
