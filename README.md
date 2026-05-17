@@ -122,7 +122,6 @@ POST /estoque/saida
   "produtoId": 1,
   "quantidade": 3
 }
-```
 
 ## 🏗️ Estrutura do projeto
 src/main/java/com/roni/estoque/
@@ -138,3 +137,5 @@ config/         → configuração do Swagger
 - Autenticação via JWT com expiração de 24 horas
 - Senhas criptografadas com BCrypt
 - Rotas protegidas com Spring Security
+```
+
