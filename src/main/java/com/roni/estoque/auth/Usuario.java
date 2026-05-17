@@ -1,5 +1,6 @@
 package com.roni.estoque.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,10 +24,10 @@ public class Usuario implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String senha;
 
-    // UserDetails exige esses métodos
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

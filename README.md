@@ -1,15 +1,16 @@
 # 📦 Estoque API
 
-API REST para controle de estoque de produtos desenvolvida com Spring Boot.
+API REST para controle de estoque de produtos desenvolvida com Spring Boot. Permite gerenciar categorias, produtos e movimentações de entrada e saída do estoque.
 
 ## 🚀 Tecnologias
 
 - Java 21
 - Spring Boot 3
-- Spring Data JPA
-- Hibernate
+- Spring Security + JWT
+- Spring Data JPA + Hibernate
 - H2 Database
 - Lombok
+- Swagger / OpenAPI
 - Maven
 
 ## ▶️ Como rodar
@@ -18,10 +19,13 @@ API REST para controle de estoque de produtos desenvolvida com Spring Boot.
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/ronizera/estoque-java.git
+git clone https://github.com/ronizera/estoque-spring.git
 
 # Entrar na pasta
 cd estoque-spring
+
+# Copiar o arquivo de configuração
+cp src/main/resources/application-example.properties src/main/resources/application.properties
 
 # Rodar o projeto
 ./mvnw spring-boot:run
@@ -29,44 +33,55 @@ cd estoque-spring
 
 A API vai rodar em `http://localhost:8081`
 
-Para visualizar o banco de dados acesse `http://localhost:8081/h2-console`
+## 📄 Documentação
+
+Acesse a documentação interativa em `http://localhost:8081/swagger-ui.html`
+
+Para testar rotas protegidas:
+1. Faça o registro em `POST /auth/register`
+2. Faça o login em `POST /auth/login` e copie o token sem as aspas ""
+3. Clique em **Authorize** e cole o token
 
 ## 🗄️ Banco de dados
 
-Para visualizar o banco acesse `http://localhost:8081/h2-console` com as credenciais:
-
-- **JDBC URL:** jdbc:h2:mem:estoque
-- **User:** sa
-- **Password:** (deixa vazio)
+Acesse o console do H2 em `http://localhost:8081/h2-console`
+JDBC URL: jdbc:h2:mem:estoque
+User:     sa
+Password: (vazio)
 
 
 ## 📋 Endpoints
 
-### Categorias
+### Auth
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| POST | /auth/register | Cadastra novo usuário |
+| POST | /auth/login | Realiza login e retorna token |
 
+### Categorias
 | Método | Rota | Descrição |
 |--------|------|-----------|
 | GET | /categorias | Lista todas as categorias |
 | GET | /categorias/{id} | Busca uma categoria |
 | POST | /categorias | Cria uma categoria |
+| PUT | /categorias/{id} | Atualiza uma categoria |
 | DELETE | /categorias/{id} | Remove uma categoria |
 
 ### Produtos
-
 | Método | Rota | Descrição |
 |--------|------|-----------|
 | GET | /produtos | Lista todos os produtos |
 | GET | /produtos/{id} | Busca um produto |
 | POST | /produtos | Cria um produto |
+| PUT | /produtos/{id} | Atualiza um produto |
 | DELETE | /produtos/{id} | Remove um produto |
 
 ### Estoque
-
 | Método | Rota | Descrição |
 |--------|------|-----------|
-| GET | /estoque | Lista estoque atual de todos os produtos |
-| GET | /estoque/{produtoId} | Busca estoque de um produto |
-| GET | /estoque/historico | Lista histórico de movimentações |
+| GET | /estoque | Estoque atual de todos os produtos |
+| GET | /estoque/{produtoId} | Estoque de um produto específico |
+| GET | /estoque/historico | Histórico de movimentações |
 | POST | /estoque/entrada | Registra entrada no estoque |
 | POST | /estoque/saida | Registra saída do estoque |
 
@@ -108,3 +123,18 @@ POST /estoque/saida
   "quantidade": 3
 }
 ```
+
+## 🏗️ Estrutura do projeto
+src/main/java/com/roni/estoque/
+auth/           → autenticação JWT e Spring Security
+categoria/      → gerenciamento de categorias
+produto/        → gerenciamento de produtos
+estoque/        → controle de movimentações
+exception/      → tratamento global de erros
+config/         → configuração do Swagger
+
+## 🔒 Segurança
+
+- Autenticação via JWT com expiração de 24 horas
+- Senhas criptografadas com BCrypt
+- Rotas protegidas com Spring Security
