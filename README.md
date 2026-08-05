@@ -25,7 +25,7 @@ git clone https://github.com/ronizera/estoque-spring.git
 cd estoque-spring
 
 # Copiar o arquivo de configuração
-cp src/main/resources/application-example.properties src/main/resources/application.properties
+cp src/main/resources/application-dev.properties src/main/resources/application.properties
 
 # Rodar o projeto
 ./mvnw spring-boot:run
